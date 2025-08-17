@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: gun-mwal
+    env: node
+    region: frankfurt
+    plan: starter  # use 'starter' (or higher) to attach a persistent disk; 'free' is ephemeral
+    buildCommand: "npm ci --omit=dev || npm install --omit=dev"
+    startCommand: "node server.js"
+    autoDeploy: true
+    healthCheckPath: /healthz
+    disk:
+      name: data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production

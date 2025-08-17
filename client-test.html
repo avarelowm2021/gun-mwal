@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Client test GUN — gun-mwal</title>
+  <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+</head>
+<body>
+  <h1>Client test GUN</h1>
+  <pre id="out">Init…</pre>
+  <script>
+    const peer = (location.origin || '').replace(/\/$/, '') + '/gun';
+    const gun = Gun([peer]);
+    const key = 'gun-mwal:hello';
+    gun.get(key).put({ ts: Date.now(), msg: 'Bonjour de GUN 👋' });
+    gun.get(key).once(d => document.getElementById('out').textContent = JSON.stringify(d,null,2));
+  </script>
+</body>
+</html>
